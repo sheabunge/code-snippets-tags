@@ -106,7 +106,6 @@ class Code_Snippets_Tags {
 			$wpdb->query( sprintf( $sql, $wpdb->ms_snippets ) );
 	}
 
-
 	/**
 	 * Add a tags column to the snippets table
 	 *
@@ -279,7 +278,36 @@ class Code_Snippets_Tags {
 
 		<input type="text" id="snippet_tags" name="snippet_tags" style="width: 100%;" placeholder="Enter a list of tags; separated by commas" value="<?php echo implode( ', ', $snippet->tags ); ?>" />
 
-		<script type="text/javascript">jQuery('#snippet_tags').tagit();</script>
+		<script type="text/javascript">
+		jQuery('#snippet_tags').tagit({
+			 availableTags: [<?php
+
+				global $wpdb, $code_snippets;
+
+				// grab all tags from the database
+				$tags = array();
+				$table = $code_snippets->get_table_name();
+				$all_tags = $wpdb->get_col( "SELECT tags FROM $table" );
+
+				// merge all tags into a single array
+				foreach ( $all_tags as $snippet_tags ) {
+					$snippet_tags = maybe_unserialize( $snippet_tags );
+					$snippet_tags = $this->convert_tags( $snippet_tags );
+					$tags = array_merge( $snippet_tags, $tags );
+				}
+
+				// format the array for output
+				$output = '';
+				foreach ( $tags as $tag ) {
+					$output .= "'$tag',";
+				}
+				echo rtrim( $output, ',' );
+
+			?>],
+			allowSpaces: true,
+			removeConfirmation: true
+		});
+		</script>
 
 	<?php
 	}
