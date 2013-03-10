@@ -11,50 +11,54 @@
  * License URI: http://opensource.org/license/mit-license.php
  */
 
-class Code_Snippets_Tags {
+final class Code_Snippets_Tags {
 
-	static $version = 0.1;
+	public $version = 0.1;
 
-	static function init() {
+	function __construct() {
+		add_action( 'code_snippets_init', array( $this, 'init' ) );
+	}
+
+	public function init() {
 
 		/* Administration */
-		add_action( 'code_snippets_admin_single', array( __CLASS__, 'admin_single' ) );
-		add_filter( 'code_snippets_list_table_columns', array( __CLASS__, 'add_table_column' ) );
-		add_action( 'code_snippets_list_table_column_tags', array( __CLASS__, 'table_column' ), 10, 1 );
+		add_action( 'code_snippets_admin_single', array( $this, 'admin_single' ) );
+		add_filter( 'code_snippets_list_table_columns', array( $this, 'add_table_column' ) );
+		add_action( 'code_snippets_list_table_column_tags', array( $this, 'table_column' ), 10, 1 );
 
 		/* Seralizing snippet data */
-		add_filter( 'code_snippets_escape_snippet_data', array( __CLASS__, 'escape_snippet_data' ) );
-		add_filter( 'code_snippets_unescape_snippet_data', array( __CLASS__, 'unescape_snippet_data' ) );
+		add_filter( 'code_snippets_escape_snippet_data', array( $this, 'escape_snippet_data' ) );
+		add_filter( 'code_snippets_unescape_snippet_data', array( $this, 'unescape_snippet_data' ) );
 
 		/* Creating a snippet object */
-		add_filter( 'code_snippets_build_default_snippet', array( __CLASS__, 'build_default_snippet' ) );
-		add_filter( 'code_snippets_build_snippet_object', array( __CLASS__, 'build_snippet_object' ), 10, 2 );
+		add_filter( 'code_snippets_build_default_snippet', array( $this, 'build_default_snippet' ) );
+		add_filter( 'code_snippets_build_snippet_object', array( $this, 'build_snippet_object' ), 10, 2 );
 
 		/* Scripts and styles */
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-		self::upgrade();
+		$this->upgrade();
 	}
 
 	/**
 	 * Check if the currently installed plugin version is new or not
 	 */
-	static function upgrade() {
+	function upgrade() {
 
 		$installed_version = get_site_option( 'code_snippets_tags_version' );
 
-		if ( self::$version !== $installed_version ) {
+		if ( $this->version !== $installed_version ) {
 			// first run of this version, record it in the database
-			update_site_option( 'code_snippets_tags_version', self::$version );
+			update_site_option( 'code_snippets_tags_version', $this->version );
 			// add the database column
-			self::add_database_column();
+			$this->add_database_column();
 		}
 	}
 
 	/**
 	 * Add a column to the database
 	 */
-	static function add_database_column() {
+	function add_database_column() {
 		global $wpdb, $code_snippets;
 
 		$code_snippets->create_tables();
@@ -67,12 +71,12 @@ class Code_Snippets_Tags {
 			$wpdb->query( sprintf( $sql, $wpdb->ms_snippets ) );
 	}
 
-	static function add_table_column( $columns ) {
+	function add_table_column( $columns ) {
 		$columns['tags'] = __('Tags', 'code-snippets-tags');
 		return $columns;
 	}
 
-	static function table_column( $snippet ) {
+	function table_column( $snippet ) {
 
 		if ( ! empty( $snippet->tags ) ) {
 			echo join( ', ', $snippet->tags );
@@ -81,7 +85,7 @@ class Code_Snippets_Tags {
 		}
 	}
 
-	static function convert_tags( $tags ) {
+	public function convert_tags( $tags ) {
 
 		/* if there are no tags set, create a default empty array */
 		if ( empty( $tags ) ) {
@@ -102,24 +106,24 @@ class Code_Snippets_Tags {
 		return $tags;
 	}
 
-	static function escape_snippet_data( $snippet ) {
-		$snippet->tags = self::convert_tags( $snippet->tags );
+	function escape_snippet_data( $snippet ) {
+		$snippet->tags = $this->convert_tags( $snippet->tags );
 		$snippet->tags = maybe_serialize( $snippet->tags );
 		return $snippet;
 	}
 
-	static function unescape_snippet_data( $snippet ) {
+	function unescape_snippet_data( $snippet ) {
 		$snippet->tags = maybe_unserialize( $snippet->tags );
-		$snippet->tags = self::convert_tags( $snippet->tags );
+		$snippet->tags = $this->convert_tags( $snippet->tags );
 		return $snippet;
 	}
 
-	static function build_default_snippet( $snippet ) {
+	function build_default_snippet( $snippet ) {
 		$snippet->tags = array();
 		return $snippet;
 	}
 
-	static function build_snippet_object( $snippet, $data ) {
+	function build_snippet_object( $snippet, $data ) {
 
 		if ( isset( $data['tags'] ) )
 			$snippet->tags = $data['tags'];
@@ -130,7 +134,7 @@ class Code_Snippets_Tags {
 		return $snippet;
 	}
 
-	static function enqueue_scripts() {
+	function enqueue_scripts() {
 		global $code_snippets;
 
 		if ( get_current_screen()->id !== $code_snippets->admin_single )
@@ -171,7 +175,7 @@ class Code_Snippets_Tags {
 		wp_enqueue_script( 'tag-it' );
 	}
 
-	static function admin_single( $snippet ) {
+	function admin_single( $snippet ) {
 	?>
 		<label for="snippet_tags" style="cursor: auto;">
 			<h3><?php esc_html_e('Tags', 'code-snippets'); ?>
@@ -186,4 +190,5 @@ class Code_Snippets_Tags {
 	}
 }
 
-add_action( 'code_snippets_init', array( 'Code_Snippets_Tags', 'init' ) );
+global $code_snippets;
+$code_snippets->tags = new Code_Snippets_Tags;
