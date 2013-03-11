@@ -299,7 +299,8 @@ class Code_Snippets_Tags {
 				// format the array for output
 				$output = '';
 				foreach ( $tags as $tag ) {
-					$output .= "'$tag',";
+					if ( false === strpos( $output, $tag ) )
+						$output .= "'$tag',";
 				}
 				echo rtrim( $output, ',' );
 
