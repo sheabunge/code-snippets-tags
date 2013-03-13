@@ -54,6 +54,8 @@ class Code_Snippets_Tags {
 		add_action( 'code_snippets_admin_single', array( $this, 'admin_single' ) );
 		add_filter( 'code_snippets_list_table_columns', array( $this, 'add_table_column' ) );
 		add_action( 'code_snippets_list_table_column_tags', array( $this, 'table_column' ), 10, 1 );
+		add_action( 'code_snippets_list_table_filter_controls', array( $this, 'tags_dropdown' ) );
+		add_action( 'code_snippets_list_table_prepare_items', array( $this, 'filter_snippets' ) );
 
 		/* Serializing snippet data */
 		add_filter( 'code_snippets_escape_snippet_data', array( $this, 'escape_snippet_data' ) );
@@ -127,10 +129,103 @@ class Code_Snippets_Tags {
 	function table_column( $snippet ) {
 
 		if ( ! empty( $snippet->tags ) ) {
-			echo join( ', ', $snippet->tags );
+
+			foreach ( $snippet->tags as $tag ) {
+				$out[] = sprintf( '<a href="%s">%s</a>',
+					add_query_arg( 'tag', esc_attr( $tag ) ),
+					esc_html( $tag )
+				);
+			}
+			echo join( ', ', $out );
 		} else {
 			echo '&#8212;';
 		}
+	}
+
+	/**
+	 * Filter the snippets based
+	 * on the tag filter
+	 *
+	 * @since Code_Snippets_Tags 1.0
+	 * @access public
+	 */
+	function filter_snippets() {
+		global $snippets, $status;
+
+		if ( isset( $_GET['tag'] ) ) {
+			$status = 'search';
+			$snippets['search'] = array_filter( $snippets['all'], array( $this, '_filter_snippets_callback' ) );
+		}
+	}
+
+	function _filter_snippets_callback( $snippet ) {
+
+		$tags = explode( ',', $_GET['tag'] );
+
+		foreach ( $tags as $tag ) {
+			if ( in_array( $tag, $snippet->tags ) ) {
+				return true;
+			}
+		}
+	}
+
+	/**
+	 * Display a dropdown of all of the used tags for filtering items
+	 *
+	 * @since Code Snippets Tags 1.0
+	 * @access public
+	 */
+	public function tags_dropdown() {
+		global $wpdb;
+
+		$tags = $this->get_all_tags();
+		$query = isset( $_GET['tag'] ) ? $_GET['tag'] : '';
+
+		if ( ! count( $tags ) )
+			return;
+
+		echo '<select name="tag">';
+
+		printf ( "<option %s value=''>%s</option>\n",
+			selected( $query, '', false ),
+			__('Show all tags', 'code-snippets-tags')
+		);
+
+		foreach ( $tags as $tag ) {
+
+			printf( "<option %s value='%s'>%s</option>\n",
+				selected( $query, $tag, false ),
+				esc_attr( $tag ),
+				$tag
+			);
+		}
+
+		echo '</select>';
+	}
+
+	/**
+	 * Gets all of the used tags from the database
+	 *
+	 * @since Code Snippets Tags 1.0
+	 * @access public
+	 */
+	public function get_all_tags() {
+		global $wpdb, $code_snippets;
+
+		// grab all tags from the database
+		$tags = array();
+		$table = $code_snippets->get_table_name();
+		$all_tags = $wpdb->get_col( "SELECT tags FROM $table" );
+
+		// merge all tags into a single array
+		foreach ( $all_tags as $snippet_tags ) {
+			$snippet_tags = maybe_unserialize( $snippet_tags );
+			$snippet_tags = $this->convert_tags( $snippet_tags );
+			$tags = array_merge( $snippet_tags, $tags );
+		}
+
+		// remove dupicate tags
+		return array_values( array_unique( $tags, SORT_REGULAR ) );
 	}
 
 	/**
@@ -280,31 +375,7 @@ class Code_Snippets_Tags {
 
 		<script type="text/javascript">
 		jQuery('#snippet_tags').tagit({
-			 availableTags: [<?php
-
-				global $wpdb, $code_snippets;
-
-				// grab all tags from the database
-				$tags = array();
-				$table = $code_snippets->get_table_name();
-				$all_tags = $wpdb->get_col( "SELECT tags FROM $table" );
-
-				// merge all tags into a single array
-				foreach ( $all_tags as $snippet_tags ) {
-					$snippet_tags = maybe_unserialize( $snippet_tags );
-					$snippet_tags = $this->convert_tags( $snippet_tags );
-					$tags = array_merge( $snippet_tags, $tags );
-				}
-
-				// format the array for output
-				$output = '';
-				foreach ( $tags as $tag ) {
-					if ( false === strpos( $output, $tag ) )
-						$output .= "'$tag',";
-				}
-				echo rtrim( $output, ',' );
-
-			?>],
+			availableTags: ['<?php echo implode( "','", $this->get_all_tags() ); ?>'],
 			allowSpaces: true,
 			removeConfirmation: true
 		});
