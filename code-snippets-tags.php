@@ -52,10 +52,16 @@ class Code_Snippets_Tags {
 
 		/* Administration */
 		add_action( 'code_snippets_admin_single', array( $this, 'admin_single' ) );
+
+		/* Administration :: table column */
 		add_filter( 'code_snippets_list_table_columns', array( $this, 'add_table_column' ) );
-		add_action( 'code_snippets_list_table_column_tags', array( $this, 'table_column' ), 10, 1 );
+		add_action( 'code_snippets_list_table_column_tags', array( $this, 'table_column' ) );
+
+		/* Administration :: tags filter */
 		add_action( 'code_snippets_list_table_filter_controls', array( $this, 'tags_dropdown' ) );
-		add_action( 'code_snippets_list_table_prepare_items', array( $this, 'filter_snippets' ) );
+		add_filter( 'code_snippets_list_table_get_snippets', array( $this, 'filter_snippets' ) );
+		add_filter( 'code_snippets_list_table_search_notice', array( $this, 'search_notice' ) );
+		add_filter( 'code_snippets_list_table_required_form_fields', array( $this, 'add_form_field' ), 10, 2 );
 
 		/* Serializing snippet data */
 		add_filter( 'code_snippets_escape_snippet_data', array( $this, 'escape_snippet_data' ) );
@@ -143,19 +149,33 @@ class Code_Snippets_Tags {
 	}
 
 	/**
+	 * Adds the 'tag' query var as a required form field
+	 * so it is preserved over form submissions
+	 *
+	 * @since Code Snippets Tags 1.0
+	 * @access public
+	 */
+	function add_form_field( $vars, $context ) {
+
+		if ( 'filter_controls' !== $context ) {
+			$vars[] = 'tag';
+		}
+
+		return $vars;
+	}
+
+	/**
 	 * Filter the snippets based
 	 * on the tag filter
 	 *
-	 * @since Code_Snippets_Tags 1.0
+	 * @since Code Snippets Tags 1.0
 	 * @access public
 	 */
-	function filter_snippets() {
-		global $snippets, $status;
-
-		if ( isset( $_GET['tag'] ) ) {
-			$status = 'search';
-			$snippets['search'] = array_filter( $snippets['all'], array( $this, '_filter_snippets_callback' ) );
+	function filter_snippets( $snippets ) {
+		if ( ! empty( $_GET['tag'] ) ) {
+			$snippets = array_filter( $snippets, array( $this, '_filter_snippets_callback' ) );
 		}
+		return $snippets;
 	}
 
 	function _filter_snippets_callback( $snippet ) {
@@ -166,6 +186,12 @@ class Code_Snippets_Tags {
 			if ( in_array( $tag, $snippet->tags ) ) {
 				return true;
 			}
+		}
+	}
+
+	function search_notice() {
+		if ( ! empty( $_GET['tag'] ) ) {
+			return sprintf ( __(' in tag &#8220;%s&#8221;', 'code-snippets-tags' ), $_GET['tag'] );
 		}
 	}
 
