@@ -1,4 +1,4 @@
-=== Code Snippets ===
+=== Code Snippets Tags ===
 Contributors: bungeshea
 Donate link: http://code-snippets.bungeshea.com/donate/
 Tags: code-snippets, snippets, tags, category, organization
@@ -8,13 +8,13 @@ Stable tag: 1.0
 License: MIT
 License URI: http://opensource.org/licenses/mit-license.php
 
-An easy, clean and simple way to add code snippets to your site.
+Organize your code snippets with tags
 
 == Description ==
 
 Adds support to the Code Snippets WordPress plugin for adding tags to snippets. Requires [Code Snippets](http://wordpress.org/extend/plugins/code-snippets) 1.7 or later.
 
-Visit the [plugin homepage](http://code-snippets.bungeshea.com/plugins/tags/) or contribute to its development on [GitHub](https://github.com/bungeshea/code-snippets/tags).
+Visit the [plugin homepage](http://code-snippets.bungeshea.com/plugins/tags/) or contribute to its development on [GitHub](https://github.com/bungeshea/code-snippets-tags).
 
 == Installation ==
 
@@ -39,4 +39,7 @@ This plugin extends the functionality of [Code Snippets](http://wordpress.org/ex
 == Changelog ==
 
 = 1.0 =
-* Stable version released
+* Added table column to snippets menu
+* Added tags field to single snippet menu
+* Added tag filter dropdown to snippets menu
+* Link tags in table column to relevant tag filter
