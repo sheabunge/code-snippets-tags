@@ -66,6 +66,7 @@ class Code_Snippets_Tags {
 		/* Serializing snippet data */
 		add_filter( 'code_snippets_escape_snippet_data', array( $this, 'escape_snippet_data' ) );
 		add_filter( 'code_snippets_unescape_snippet_data', array( $this, 'unescape_snippet_data' ) );
+		add_filter( 'code_snippets_export_tags', array( $this, 'escape_export_data' ) );
 
 		/* Creating a snippet object */
 		add_filter( 'code_snippets_build_default_snippet', array( $this, 'build_default_snippet' ) );
@@ -304,6 +305,21 @@ class Code_Snippets_Tags {
 		$snippet->tags = maybe_unserialize( $snippet->tags );
 		$snippet->tags = $this->convert_tags( $snippet->tags );
 		return $snippet;
+	}
+
+	/**
+	 * Format tags as comma-seperated list
+	 * for export file. $this->escape_export_data()
+	 * will later handle converting this
+	 * back into an array
+	 *
+	 * @since Code Snippets Tags 1.0
+	 * @access private
+	 */
+	function escape_export_data( $tags ) {
+		$tags = maybe_unserialize( $tags );
+		$tags = $this->convert_tags( $tags );
+		return implode( ', ', $tags );
 	}
 
 	/**
