@@ -190,6 +190,12 @@ class Code_Snippets_Tags {
 		}
 	}
 
+	/**
+	 * Adds the tag filter to the search notice
+	 *
+	 * @since Code Snippets Tags 1.0
+	 * @access private
+	 */
 	function search_notice() {
 		if ( ! empty( $_GET['tag'] ) ) {
 			return sprintf ( __(' in tag &#8220;%s&#8221;', 'code-snippets-tags' ), $_GET['tag'] );
@@ -205,7 +211,7 @@ class Code_Snippets_Tags {
 	public function tags_dropdown() {
 		global $wpdb;
 
-		$tags = $this->get_all_tags();
+		$tags = $this->get_current_tags();
 		$query = isset( $_GET['tag'] ) ? $_GET['tag'] : '';
 
 		if ( ! count( $tags ) )
@@ -249,6 +255,30 @@ class Code_Snippets_Tags {
 			$snippet_tags = maybe_unserialize( $snippet_tags );
 			$snippet_tags = $this->convert_tags( $snippet_tags );
 			$tags = array_merge( $snippet_tags, $tags );
+		}
+
+		// remove dupicate tags
+		return array_values( array_unique( $tags, SORT_REGULAR ) );
+	}
+
+	/**
+	 * Gets the tags of the snippets currently being viewed in the table
+	 *
+	 * @since Code Snippets Tags 1.0
+	 * @access public
+	 */
+	public function get_current_tags() {
+		global $snippets, $status;
+
+		// if we're not viewing a snippets table, get all used tags instead
+		if ( ! isset( $snippets, $status ) )
+			return $this->get_all_tags();
+
+		$tags = array();
+
+		// merge all tags into a single array
+		foreach ( $snippets[ $status ] as $snippet ) {
+			$tags = array_merge( $snippet->tags, $tags );
 		}
 
 		// remove dupicate tags
