@@ -173,6 +173,15 @@ class Code_Snippets_Tags {
 	 * @access public
 	 */
 	function filter_snippets( $snippets ) {
+
+		if ( isset( $_POST['tag'] ) ) {
+
+			if ( ! empty( $_POST['tag'] ) )
+				wp_redirect( add_query_arg( 'tag', $_POST['tag'] ) );
+			else
+				wp_redirect( remove_query_arg( 'tag' ) );
+		}
+
 		if ( ! empty( $_GET['tag'] ) ) {
 			$snippets = array_filter( $snippets, array( $this, '_filter_snippets_callback' ) );
 		}
