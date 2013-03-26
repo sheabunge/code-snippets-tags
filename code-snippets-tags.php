@@ -9,6 +9,7 @@
  * Version: 1.0
  * License: MIT
  * License URI: http://opensource.org/license/mit-license.php
+ * Text Domain: code-snippets-tags
  */
 
 class Code_Snippets_Tags {

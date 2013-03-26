@@ -1,0 +1,47 @@
+# Copyright (C) 2013 Code Snippets Tags
+# This file is distributed under the same license as the Code Snippets Tags package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Code Snippets Tags 1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/code-snippets-tags\n"
+"POT-Creation-Date: 2013-03-26 07:05:38+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: code-snippets-tags.php:125 code-snippets-tags.php:451
+msgid "Tags"
+msgstr ""
+
+#: code-snippets-tags.php:210
+msgid " in tag &#8220;%s&#8221;"
+msgstr ""
+
+#: code-snippets-tags.php:233
+msgid "Show all tags"
+msgstr ""
+
+#: code-snippets-tags.php:452
+msgid "(Optional)"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Code Snippets Tags"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Adds support for adding tags to snippets to the Code Snippets WordPress "
+"plugin. Requires Code Snippets 1.7 or later"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Shea Bunge"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://bungeshea.com"
+msgstr ""
