@@ -36,6 +36,11 @@ This plugin extends the functionality of [Code Snippets](http://wordpress.org/ex
 3. Upload the contents of the zip file to the `wp-content/plugins/` folder of your WordPress installation
 4. Activate the "Code Snippets Tags" plugin from 'Plugins' page.
 
+== Screenshots ==
+1. The tags column in the snippets table
+2. Filtering snippets based on tag
+3. Editing a snippet's tags
+
 == Changelog ==
 
 = 1.0 =

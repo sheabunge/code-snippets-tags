@@ -15,3 +15,14 @@ Adds support to the Code Snippets WordPress plugin for adding tags to snippets. 
 1. Rename the resulting folder to `code-snippets-tags`
 1. Upload this folder to the `wp-content/plugins/` folder of your WordPress installation
 1. Activate the "Code Snippets Tags" plugin from 'Plugins' page.
+
+## Screenshots
+
+### The tags column in the snippets table
+![The tags column in the snippets table](screenshot-1.jpg "The tags column in the snippets table")
+
+### Filtering snippets based on tag
+![Filtering snippets based on tag](screenshot-2.jpg "Filtering snippets based on tag")
+
+### Editing a snippet's tags
+[Editing a snippet's tags](screenshot-3.jpg "Editing a snippet's tags")
