@@ -1,0 +1,79 @@
+# This German Language File: Copyright (C) 2013 by David Decker of deckerweb.de & genesisthemes.de
+# This file is distributed under the same license as the Code Snippets Tags Plugin package.
+#
+# Weitere deutsche Sprachdateien fuer WordPress-Plugins und -Themes finden Sie unter:
+# --> http://deckerweb.de/sprachdateien/
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Code Snippets Tags v1.0\n"
+"Report-Msgid-Bugs-To: http://deckerweb.de/kontakt/\n"
+"POT-Creation-Date: 2013-03-27 16:13:18+0000\n"
+"PO-Revision-Date: 2013-03-27 17:15+0100\n"
+"Last-Translator: David Decker <deckerweb.mobil@googlemail.com>\n"
+"Language-Team: David Decker -- http://deckerweb.de/kontakt/\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#@ code-snippets-tags
+#: code-snippets-tags.php:130
+#: code-snippets-tags.php:456
+msgid "Tags"
+msgstr "Schlagwörter"
+
+#@ code-snippets-tags
+#: code-snippets-tags.php:215
+#, php-format
+msgid " in tag &#8220;%s&#8221;"
+msgstr " für das Schlagwort &#8220;%s&#8221;"
+
+#@ code-snippets-tags
+#: code-snippets-tags.php:238
+msgid "Show all tags"
+msgstr "Alle Schlagwörter anzeigen"
+
+#@ code-snippets-tags
+#: code-snippets-tags.php:457
+msgid "(Optional)"
+msgstr "(optional, aber empfohlen für bessere Organisation &amp; Übersicht)"
+
+#@ code-snippets-tags
+#. translators: plugin header field 'Name'
+#: code-snippets-tags.php:0
+msgid "Code Snippets Tags"
+msgstr "Codeschnipsel Schlagwörter"
+
+#@ code-snippets-tags
+#. translators: plugin header field 'Description'
+#: code-snippets-tags.php:0
+msgid "Adds support for adding tags to snippets to the Code Snippets WordPress plugin. Requires Code Snippets 1.7 or later"
+msgstr "Fügt dem 'Codeschnipsel'-Plugin die Unterstützung für Schlagwörter (Tags) hinzu. Erfordert mindestens Version 1.7 von 'Code Snippets' oder höher."
+
+#@ code-snippets-tags
+#. translators: plugin header field 'Author'
+#: code-snippets-tags.php:0
+msgid "Shea Bunge"
+msgstr "Shea Bunge"
+
+#@ code-snippets-tags
+#. translators: plugin header field 'AuthorURI'
+#: code-snippets-tags.php:0
+msgid "http://bungeshea.com"
+msgstr "http://bungeshea.com/"
+
+#@ code-snippets-tags
+#. translators: plugin header field 'Version'
+#: code-snippets-tags.php:0
+msgid "1.0"
+msgstr "1.0"
+
