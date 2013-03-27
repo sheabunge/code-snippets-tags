@@ -10,6 +10,7 @@
  * License: MIT
  * License URI: http://opensource.org/license/mit-license.php
  * Text Domain: code-snippets-tags
+ * Domain Path: /languages/
  */
 
 class Code_Snippets_Tags {
@@ -50,6 +51,9 @@ class Code_Snippets_Tags {
 	 * @access public
 	 */
 	public function init() {
+
+		/* Load translations */
+		load_plugin_textdomain( 'code-snippets-tags', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		/* Administration */
 		add_action( 'code_snippets_admin_single', array( $this, 'admin_single' ) );
@@ -449,8 +453,8 @@ class Code_Snippets_Tags {
 	public function admin_single( $snippet ) {
 	?>
 		<label for="snippet_tags" style="cursor: auto;">
-			<h3><?php esc_html_e('Tags', 'code-snippets'); ?>
-			<span style="font-weight: normal;"><?php esc_html_e('(Optional)', 'code-snippets'); ?></span></h3>
+			<h3><?php esc_html_e( 'Tags', 'code-snippets-tags' ); ?>
+			<span style="font-weight: normal;"><?php esc_html_e( '(Optional)', 'code-snippets-tags' ); ?></span></h3>
 		</label>
 
 		<input type="text" id="snippet_tags" name="snippet_tags" style="width: 100%;" placeholder="Enter a list of tags; separated by commas" value="<?php echo implode( ', ', $snippet->tags ); ?>" />
