@@ -25,4 +25,4 @@ Adds support to the Code Snippets WordPress plugin for adding tags to snippets. 
 ![Filtering snippets based on tag](screenshot-2.jpg "Filtering snippets based on tag")
 
 ### Editing a snippet's tags
-[Editing a snippet's tags](screenshot-3.jpg "Editing a snippet's tags")
+![Editing a snippet's tags](screenshot-3.jpg "Editing a snippet's tags")
