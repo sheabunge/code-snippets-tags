@@ -8,11 +8,13 @@ Stable tag: 1.0
 License: MIT
 License URI: http://opensource.org/licenses/mit-license.php
 
-Organize your code snippets with tags
+Organize your code snippets with tags. Adds support to the Code Snippets WordPress plugin for adding tags to snippets.
 
 == Description ==
 
 Adds support to the Code Snippets WordPress plugin for adding tags to snippets. Requires [Code Snippets](http://wordpress.org/extend/plugins/code-snippets) 1.7 or later.
+
+You can assign tags to snippets using an interactive UI when editing or adding a new snippet. Then, you can filter snippets by tag on the snippets table, or see what tags are assigned to a particular snippet with a glance at the new table column. Tags are stored in your database, and can be exported and imported along with the other snippet information.
 
 Visit the [plugin homepage](http://code-snippets.bungeshea.com/plugins/tags/) or contribute to its development on [GitHub](https://github.com/bungeshea/code-snippets-tags).
 
@@ -37,6 +39,7 @@ This plugin extends the functionality of [Code Snippets](http://wordpress.org/ex
 4. Activate the "Code Snippets Tags" plugin from 'Plugins' page.
 
 == Screenshots ==
+
 1. The tags column in the snippets table
 2. Filtering snippets based on tag
 3. Editing a snippet's tags

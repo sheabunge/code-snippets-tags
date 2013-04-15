@@ -1,6 +1,6 @@
 # Code Snippets Tags
 
-* __Requires at least:__ Code Snippets 1.7 and WordPress 3.3
+* __Requires at least:__ Code Snippets 1.7.1 and WordPress 3.3
 * __Tested up to:__ WordPress 3.6-alpha
 * __Stable version:__ [1.0](http://downloads.wordpress.org/plugin/code-snippets-tags.latest-stable.zip)
 * __License:__ [MIT](http://opensource.org/licenses/mit-license.php)
