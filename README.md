@@ -1,7 +1,7 @@
 # Code Snippets Tags
 
-* __Requires at least:__ Code Snippets 1.7.1 and WordPress 3.3
-* __Tested up to:__ WordPress 3.6-alpha
+* __Requires at least:__ [Code Snippets 1.7.1][code-snippets] and [WordPress 3.3](http://wordpress.org/download/)
+* __Tested up to:__ [WordPress 3.6 Beta 1](http://wordpress.org/news/2013/04/wordpress-3-6-beta-1/)
 * __Stable version:__ [1.0](http://downloads.wordpress.org/plugin/code-snippets-tags.latest-stable.zip)
 * __License:__ [MIT](http://opensource.org/licenses/mit-license.php)
 
@@ -9,7 +9,7 @@ Adds support to the Code Snippets WordPress plugin for adding tags to snippets. 
 
 ## Installation
 
-1. Install [Code Snippets](https://github.com/bungeshea/code-snippets) using the [directions](https://github.com/bungeshea/code-snippets#installation) provided with the plugin
+1. Install [Code Snippets][code-snippets] using the [directions](https://github.com/bungeshea/code-snippets#installation) provided with the plugin
 1. [Download the plugin](https://github.com/bungeshea/code-snippets-tags/archive/master.zip)
 1. Extract the contents of the zip file
 1. Rename the resulting folder to `code-snippets-tags`
@@ -26,3 +26,5 @@ Adds support to the Code Snippets WordPress plugin for adding tags to snippets. 
 
 ### Editing a snippet's tags
 ![Editing a snippet's tags](screenshot-3.jpg "Editing a snippet's tags")
+
+  [code-snippets]: https://github.com/bungeshea/code-snippets
