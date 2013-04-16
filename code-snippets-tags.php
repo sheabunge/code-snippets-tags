@@ -37,16 +37,17 @@ class Code_Snippets_Tags {
 	 * as part of the $code_snippets global
 	 * variable
 	 *
-	 * @since 1.0
+	 * @since 1.0.1
 	 * @access private
 	 */
 	static function init() {
 		global $code_snippets;
-		$code_snippets->tags = new Code_Snippets_Tags;
+		$class = __CLASS__;
+		$code_snippets->tags = new $class;
 	}
 
 	/**
-	 * The initializer function for our class
+	 * The constructor function for our class
 	 *
 	 * Here we hook our methods to their actions
 	 * and filters, and run the upgrade method
@@ -396,10 +397,10 @@ class Code_Snippets_Tags {
 	 * @since 1.0
 	 * @access private
 	 */
-	function enqueue_scripts() {
+	function enqueue_scripts( $hook ) {
 		global $code_snippets;
 
-		if ( get_current_screen()->id !== $code_snippets->admin_single )
+		if ( $hook !== $code_snippets->admin_single )
 			return;
 
 		$tagit_version = '2.0';
