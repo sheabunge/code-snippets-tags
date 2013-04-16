@@ -30,7 +30,7 @@ class Code_Snippets_Tags {
 	 * @since 1.0
 	 * @access public
 	 */
-	public $version = 1.0;
+	public $version = '1.0.1';
 
 	/**
 	 * Create an instance of the class
@@ -101,18 +101,57 @@ class Code_Snippets_Tags {
 		$previous_version = get_option( 'code_snippets_tags_version' );
 
 		/* Ensure the 'tags' column is created with a snippet database table */
-       	add_filter( 'code_snippets_database_table_columns', array( $this, 'database_table_column' ) );
+		add_filter( 'code_snippets_database_table_columns', array( $this, 'database_table_column' ) );
 
-        if ( ! $previous_version ) {
+		if ( ! $previous_version ) {
 
-            // first run of this version, record it in the database
-            if ( update_option( 'code_snippets_tags_version', $this->version ) )
-        		$previous_version = $this->version;
+			// first run of this version, record it in the database
+			add_option( 'code_snippets_tags_version', $this->version );
+			$previous_version = $this->version;
 
-            // force upgrade of snippet tables
-            $code_snippets->maybe_create_tables( true );
-        }
+			// force upgrade of snippet tables
+			$code_snippets->maybe_create_tables( true );
 
+		}
+
+		elseif ( $previous_version < $this->version ) {
+
+			// Update the plugin version recorded in the database
+			update_option( 'code_snippets_tags_version', $this->version );
+
+			// Perform version-specific upgrades
+
+			if ( 1.0 == $previous_version ) {
+
+				// Upgrade the database data
+				$tables = array();
+
+				if ( $wpdb->get_var( "SHOW TABLES LIKE '$wpdb->snippets'" ) === $wpdb->snippets ) {
+					$tables[] = $wpdb->snippets;
+				}
+
+				if ( is_multisite() && is_main_site() && $wpdb->get_var( "SHOW TABLES LIKE '$wpdb->ms_snippets'" ) === $wpdb->ms_snippets ) {
+					$tables[] = $wpdb->ms_snippets;
+				}
+
+				foreach ( $tables as $table ) {
+					$snippets = $wpdb->get_results( "SELECT id, tags FROM $table" );
+
+					foreach ( $snippets as $snippet ) {
+						$snippet->tags = maybe_unserialize( $snippet->tags );
+						$snippet->tags = $this->build_array( $snippet->tags );
+						$snippet->tags = implode( ', ', $snippet->tags );
+
+						$wpdb->update( $table,
+							array( 'tags' => $snippet->tags ),
+							array( 'id' => $snippet->id ),
+							array( '%s' ),
+							array( '%d' )
+						);
+					}
+				} // end $table foreach
+			} // end version-specific upgrades
+		} // end old version check
 	}
 
 	/**
@@ -343,7 +382,7 @@ class Code_Snippets_Tags {
 	 */
 	function escape_snippet_data( $snippet ) {
 		$snippet->tags = $this->build_array( $snippet->tags );
-        $snippet->tags = implode( ', ', $snippet->tags );
+		$snippet->tags = implode( ', ', $snippet->tags );
 		return $snippet;
 	}
 
