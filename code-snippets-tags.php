@@ -33,18 +33,16 @@ class Code_Snippets_Tags {
 	public $version = 1.0;
 
 	/**
-	 * The constructor function for our class
-	 *
-	 * We don't do anything here except hook our init
-	 * method to the appropriate hook. This will ensure that
-	 * we only initialize after Code Snippets has loaded
+	 * Create an instance of the class
+	 * as part of the $code_snippets global
+	 * variable
 	 *
 	 * @since 1.0
 	 * @access private
 	 */
-	function __construct() {
-		$this->upgrade();
-		add_action( 'code_snippets_init', array( $this, 'init' ) );
+	static function init() {
+		global $code_snippets;
+		$code_snippets->tags = new Code_Snippets_Tags;
 	}
 
 	/**
@@ -56,7 +54,10 @@ class Code_Snippets_Tags {
 	 * @since 1.0
 	 * @access public
 	 */
-	public function init() {
+	function __construct() {
+
+		/* Run the upgrade method */
+		$this->upgrade();
 
 		/* Load translations */
 		load_plugin_textdomain( 'code-snippets-tags', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -93,18 +94,19 @@ class Code_Snippets_Tags {
 	 * @access public
 	 */
 	public function upgrade() {
-		return;
+		global $wpdb, $cpde_snippets;
 
-		global $wpdb;
+		/* Fetch the recorded plugin version from the database */
 		$previous_version = get_option( 'code_snippets_tags_version' );
 
+		/* Ensure the 'tags' column is created with a snippet database table */
        	add_filter( 'code_snippets_database_table_columns', array( $this, 'database_table_column' ) );
 
         if ( ! $previous_version ) {
 
             // first run of this version, record it in the database
-            update_option( 'code_snippets_tags_version', $this->version );
-            $previous_version = $this->version;
+            if ( update_option( 'code_snippets_tags_version', $this->version ) )
+        		$previous_version = $this->version;
 
             // force upgrade of snippet tables
             $code_snippets->maybe_create_tables( true );
@@ -462,12 +464,4 @@ class Code_Snippets_Tags {
 	}
 }
 
-/**
- * Create an instance of the class
- * as part of the $code_snippets global
- * variable
- *
- * @since 1.0
- */
-global $code_snippets;
-$code_snippets->tags = new Code_Snippets_Tags;
+add_action( 'code_snippets_init', array( 'Code_Snippets_Tags', 'init' ) );
