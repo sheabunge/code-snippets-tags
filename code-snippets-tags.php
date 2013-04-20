@@ -129,7 +129,7 @@ class Code_Snippets_Tags {
 
 			// Perform version-specific upgrades
 
-			if ( version_compare( 1.0, $previous_version ) ) {
+			if ( 0 === version_compare( '1.0', $previous_version ) ) {
 
 				// Upgrade the database data
 				$tables = array();
