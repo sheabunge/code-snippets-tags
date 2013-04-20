@@ -6,7 +6,7 @@
  * Description: Adds support for adding tags to snippets to the Code Snippets WordPress plugin. Requires Code Snippets 1.7 or later
  * Author: Shea Bunge
  * Author URI: http://bungeshea.com
- * Version: 1.0
+ * Version: 1.1
  * License: MIT
  * License URI: http://opensource.org/license/mit-license.php
  * Text Domain: code-snippets-tags
@@ -29,15 +29,15 @@ class Code_Snippets_Tags {
 	 *
 	 * @since 1.0
 	 * @access public
+	 * @var string A PHP-standardized version number string
 	 */
-	public $version = '1.0.1';
+	public $version = '1.1';
 
 	/**
-	 * Create an instance of the class
-	 * as part of the $code_snippets global
-	 * variable
+	 * Create an instance of the class as part
+	 * of the $code_snippets global variable
 	 *
-	 * @since 1.0.1
+	 * @since 1.1
 	 * @access private
 	 */
 	static function init() {
@@ -62,6 +62,9 @@ class Code_Snippets_Tags {
 
 		/* Load translations */
 		load_plugin_textdomain( 'code-snippets-tags', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+		/* Ensure the 'tags' column is created with a snippet database table */
+		add_filter( 'code_snippets_database_table_columns', array( $this, 'database_table_column' ) );
 
 		/* Administration */
 		add_action( 'code_snippets_admin_single', array( $this, 'admin_single' ) );
@@ -95,33 +98,38 @@ class Code_Snippets_Tags {
 	 * @access public
 	 */
 	public function upgrade() {
-		global $wpdb, $cpde_snippets;
+		global $wpdb, $code_snippets;
 
 		/* Fetch the recorded plugin version from the database */
 		$previous_version = get_option( 'code_snippets_tags_version' );
 
-		/* Ensure the 'tags' column is created with a snippet database table */
-		add_filter( 'code_snippets_database_table_columns', array( $this, 'database_table_column' ) );
-
 		if ( ! $previous_version ) {
 
-			// first run of this version, record it in the database
-			add_option( 'code_snippets_tags_version', $this->version );
-			$previous_version = $this->version;
+			// make sure that the version is not stored elsewhere
+			if ( is_multisite() && get_site_option( 'code_snippets_tags_version' ) ) {
+				$previous_version = get_site_option( 'code_snippets_tags_version' );
+				add_option( 'code_snippets_tags_version', $previous_version );
+				delete_site_option( 'code_snippets_tags_version' );
 
-			// force upgrade of snippet tables
-			$code_snippets->maybe_create_tables( true );
+			} else {
 
+				// first run of this version, record it in the database
+				add_option( 'code_snippets_tags_version', $this->version );
+				$previous_version = $this->version;
+
+				// force upgrade of snippet tables
+				$code_snippets->maybe_create_tables( true );
+			}
 		}
 
-		elseif ( $previous_version < $this->version ) {
+		elseif ( version_compare( $previous_version, $this->version, '<' ) ) {
 
 			// Update the plugin version recorded in the database
 			update_option( 'code_snippets_tags_version', $this->version );
 
 			// Perform version-specific upgrades
 
-			if ( 1.0 == $previous_version ) {
+			if ( version_compare( 1.0, $previous_version ) ) {
 
 				// Upgrade the database data
 				$tables = array();
@@ -157,7 +165,7 @@ class Code_Snippets_Tags {
 	/**
 	 * Add a column to the snippets database table
 	 *
-	 * @since 1.0.1
+	 * @since 1.1
 	 * @access private
 	 */
 	function database_table_column( $table_columns ) {
@@ -235,6 +243,7 @@ class Code_Snippets_Tags {
 		if ( ! empty( $_GET['tag'] ) ) {
 			$snippets = array_filter( $snippets, array( $this, '_filter_snippets_callback' ) );
 		}
+
 		return $snippets;
 	}
 
@@ -340,7 +349,7 @@ class Code_Snippets_Tags {
 			$tags = array_merge( $snippet->tags, $tags );
 		}
 
-		// remove dupicate tags
+		// remove duplicate tags
 		return array_values( array_unique( $tags, SORT_REGULAR ) );
 	}
 
@@ -355,18 +364,18 @@ class Code_Snippets_Tags {
 	 */
 	public function build_array( $tags ) {
 
-		/* if there are no tags set, create a default empty array */
+		// if there are no tags set, create a default empty array
 		if ( empty( $tags ) ) {
 			$tags = array();
 		}
 
-		/* if the tags are set as a string, convert them to an array */
+		// if the tags are set as a string, convert them to an array
 		elseif ( is_string( $tags ) ) {
 			$tags = str_replace( ', ', ',', $tags );
 			$tags = explode( ',', $tags );
 		}
 
-		/* if we still don't have an array, just convert whatever we do have into one */
+		// if we still don't have an array, just convert whatever we do have into one
 		if ( ! is_array( $tags ) ) {
 			$tags = (array) $tags;
 		}

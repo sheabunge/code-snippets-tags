@@ -46,8 +46,19 @@ This plugin extends the functionality of [Code Snippets](http://wordpress.org/ex
 
 == Changelog ==
 
+= 1.1 =
+* Tags are now stored in database as comma-separated values - no more serialized arrays!
+* Improved database table creation process (now requires Code Snippets 1.7.1)
+* Added German translation thanks to [David Decker](http://deckerweb.de/)
+* Make sure **nothing** is loaded before main Code Snippets plugin
+
 = 1.0 =
 * Added table column to snippets menu
 * Added tags field to single snippet menu
 * Added tag filter dropdown to snippets menu
 * Link tags in table column to relevant tag filter
+
+== Upgrade Notice ==
+
+= 1.1 =
+* Added German translation thanks to David Decker; database improvements

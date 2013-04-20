@@ -5,7 +5,7 @@
 * __Stable version:__ [1.0](http://downloads.wordpress.org/plugin/code-snippets-tags.latest-stable.zip)
 * __License:__ [MIT](http://opensource.org/licenses/mit-license.php)
 
-Adds support to the Code Snippets WordPress plugin for adding tags to snippets. Requires [Code Snippets](https://github.com/bungeshea/code-snippets) 1.7 or later
+Adds support to the Code Snippets WordPress plugin for adding tags to snippets. Requires [Code Snippets](https://github.com/bungeshea/code-snippets) 1.7.1 or later
 
 ## Installation
 
