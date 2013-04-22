@@ -117,6 +117,11 @@ class Code_Snippets_Tags {
 				add_option( 'code_snippets_tags_version', $this->version );
 				$previous_version = $this->version;
 
+				// don't allow the plugin to run any further if we're less then Code Snippets 1.7.1
+				if ( ! function_exists( array( $code_snippets, 'maybe_create_tables' ) ) ) {
+					return;
+				}
+
 				// force upgrade of snippet tables
 				$code_snippets->maybe_create_tables( true );
 			}
