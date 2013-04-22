@@ -118,7 +118,7 @@ class Code_Snippets_Tags {
 				$previous_version = $this->version;
 
 				// don't allow the plugin to run any further if we're less then Code Snippets 1.7.1
-				if ( ! function_exists( array( $code_snippets, 'maybe_create_tables' ) ) ) {
+				if ( ! method_exists( $code_snippets, 'maybe_create_tables' ) ) {
 					return;
 				}
 
