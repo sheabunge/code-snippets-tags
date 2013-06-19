@@ -500,8 +500,7 @@ class Code_Snippets_Tags {
 	public function admin_single( $snippet ) {
 	?>
 		<label for="snippet_tags" style="cursor: auto;">
-			<h3><?php esc_html_e( 'Tags', 'code-snippets-tags' ); ?>
-			<span style="font-weight: normal;"><?php esc_html_e( '(Optional)', 'code-snippets-tags' ); ?></span></h3>
+			<h3><?php esc_html_e( 'Tags', 'code-snippets-tags' ); ?></h3>
 		</label>
 
 		<input type="text" id="snippet_tags" name="snippet_tags" style="width: 100%;" placeholder="Enter a list of tags; separated by commas" value="<?php echo implode( ', ', $snippet->tags ); ?>" />
