@@ -42,6 +42,11 @@ class Code_Snippets_Tags {
 	 */
 	static function init() {
 		global $code_snippets;
+
+		/* This plugin requires Code Snippets 1.7.1 or greater */
+		if ( version_compare( $code_snippets->version, '1.7.1', '<' ) )
+			return;
+
 		$class = __CLASS__;
 		$code_snippets->tags = new $class;
 	}
@@ -116,11 +121,6 @@ class Code_Snippets_Tags {
 				// first run of this version, record it in the database
 				add_option( 'code_snippets_tags_version', $this->version );
 				$previous_version = $this->version;
-
-				// don't allow the plugin to run any further if we're less then Code Snippets 1.7.1
-				if ( ! method_exists( $code_snippets, 'maybe_create_tables' ) ) {
-					return;
-				}
 
 				// force upgrade of snippet tables
 				$code_snippets->maybe_create_tables( true );
