@@ -18,7 +18,7 @@
  *
  * @package    Code_Snippets
  * @subpackage Tags
- * @version    1.1
+ * @version    1.2
  * @author     Shea Bunge <http://bungeshea.com/>
  * @copyright  Copyright (c) 2013, Shea Bunge
  * @license    http://opensource.org/licenses/MIT
@@ -37,7 +37,7 @@ class Code_Snippets_Tags {
 	 * @access public
 	 * @var    string A PHP-standardized version number string
 	 */
-	public $version = '1.1';
+	public $version = '1.2';
 
 	/**
 	 * Create an instance of the class as part
@@ -49,8 +49,8 @@ class Code_Snippets_Tags {
 	static function init() {
 		global $code_snippets;
 
-		/* This plugin requires Code Snippets 1.7.1 or greater */
-		if ( version_compare( $code_snippets->version, '1.7.1', '<' ) )
+		/* This plugin requires Code Snippets 1.8 or greater */
+		if ( version_compare( $code_snippets->version, '1.8', '<' ) )
 			return;
 
 		/* Initialize the class */
@@ -75,27 +75,27 @@ class Code_Snippets_Tags {
 		load_plugin_textdomain( 'code-snippets-tags', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		/* Ensure the 'tags' column is created with a snippet database table */
-		add_filter( 'code_snippets_database_table_columns', array( $this, 'database_table_column' ) );
+		add_filter( 'code_snippets/database_table_columns', array( $this, 'database_table_column' ) );
 
 		/* Administration */
-		add_action( 'code_snippets_admin_single', array( $this, 'admin_single' ) );
+		add_action( 'code_snippets/admin/single', array( $this, 'admin_single' ) );
 
 		/* Administration :: table column */
-		add_filter( 'code_snippets_list_table_columns', array( $this, 'add_table_column' ) );
-		add_action( 'code_snippets_list_table_column_tags', array( $this, 'table_column' ) );
+		add_filter( 'code_snippets/list_table/columns', array( $this, 'add_table_column' ) );
+		add_action( 'code_snippets/list_table/column_tags', array( $this, 'table_column' ) );
 
 		/* Administration :: tags filter */
-		add_action( 'code_snippets_list_table_filter_controls', array( $this, 'tags_dropdown' ) );
-		add_filter( 'code_snippets_list_table_get_snippets', array( $this, 'filter_snippets' ) );
-		add_filter( 'code_snippets_list_table_search_notice', array( $this, 'search_notice' ) );
-		add_filter( 'code_snippets_list_table_required_form_fields', array( $this, 'add_form_field' ), 10, 2 );
+		add_action( 'code_snippets/list_table/filter_controls', array( $this, 'tags_dropdown' ) );
+		add_filter( 'code_snippets/list_table/get_snippets', array( $this, 'filter_snippets' ) );
+		add_filter( 'code_snippets/list_table/search_notice', array( $this, 'search_notice' ) );
+		add_filter( 'code_snippets/list_table/required_form_fields', array( $this, 'add_form_field' ), 10, 2 );
 
 		/* Serializing snippet data */
-		add_filter( 'code_snippets_escape_snippet_data', array( $this, 'escape_snippet_data' ) );
-		add_filter( 'code_snippets_unescape_snippet_data', array( $this, 'unescape_snippet_data' ) );
+		add_filter( 'code_snippets/escape_snippet_data', array( $this, 'escape_snippet_data' ) );
+		add_filter( 'code_snippets/unescape_snippet_data', array( $this, 'unescape_snippet_data' ) );
 
 		/* Creating a snippet object */
-		add_filter( 'code_snippets_build_default_snippet', array( $this, 'build_default_snippet' ) );
+		add_filter( 'code_snippets/build_default_snippet', array( $this, 'build_default_snippet' ) );
 		add_filter( 'code_snippets_build_snippet_object', array( $this, 'build_snippet_object' ), 10, 2 );
 
 		/* Scripts and styles */
@@ -129,7 +129,8 @@ class Code_Snippets_Tags {
 				$previous_version = $this->version;
 
 				/* Force upgrade of snippet tables */
-				$code_snippets->maybe_create_tables( true );
+				$code_snippets->create_table( $wpdb->snippets, true );
+				$code_snippets->create_table( $wpdb->ms_snippets, true );
 			}
 		}
 
@@ -446,7 +447,6 @@ class Code_Snippets_Tags {
 	 *
 	 * @since  1.0
 	 * @access private
-	 *
 	 *
 	 * @param  object $snippet The snippet object to add data to
 	 * @param  array  $data    The data to insert into the array
