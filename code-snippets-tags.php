@@ -47,8 +47,8 @@ class Code_Snippets_Tags {
 		if ( version_compare( $code_snippets->version, '1.7.1', '<' ) )
 			return;
 
-		$class = __CLASS__;
-		$code_snippets->tags = new $class;
+		/* Initialize the class */
+		$code_snippets->tags = new self;
 	}
 
 	/**
