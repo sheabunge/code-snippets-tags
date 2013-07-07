@@ -259,6 +259,10 @@ class Code_Snippets_Tags {
 		return $snippets;
 	}
 
+	/**
+	 * Used by the above function
+	 * @ignore
+	 */
 	function _filter_snippets_callback( $snippet ) {
 
 		$tags = explode( ',', $_GET['tag'] );
