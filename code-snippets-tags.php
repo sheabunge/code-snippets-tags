@@ -68,12 +68,6 @@ class Code_Snippets_Tags {
 	 */
 	function __construct() {
 
-		/* Run the upgrade method */
-		$this->upgrade();
-
-		/* Load translations */
-		load_plugin_textdomain( 'code-snippets-tags', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
 		/* Ensure the 'tags' column is created with a snippet database table */
 		add_filter( 'code_snippets/database_table_columns', array( $this, 'database_table_column' ) );
 
@@ -100,6 +94,12 @@ class Code_Snippets_Tags {
 
 		/* Scripts and styles */
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+
+		/* Run the upgrade method */
+		$this->upgrade();
+
+		/* Load translations */
+		load_plugin_textdomain( 'code-snippets-tags', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**
@@ -192,7 +192,7 @@ class Code_Snippets_Tags {
 	 * @access private
 	 */
 	function add_table_column( $columns ) {
-		$columns['tags'] = __('Tags', 'code-snippets-tags');
+		$columns['tags'] = __( 'Tags', 'code-snippets-tags' );
 		return $columns;
 	}
 
@@ -305,7 +305,7 @@ class Code_Snippets_Tags {
 
 		printf ( "<option %s value=''>%s</option>\n",
 			selected( $query, '', false ),
-			__('Show all tags', 'code-snippets-tags')
+			__( 'Show all tags', 'code-snippets-tags' )
 		);
 
 		foreach ( $tags as $tag ) {
