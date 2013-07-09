@@ -1,19 +1,19 @@
 # Code Snippets Tags
 
-* __Requires at least:__ [Code Snippets 1.7.1][code-snippets-github] and [WordPress 3.3](http://wordpress.org/download/)
-* __Tested up to:__ [WordPress 3.6 Beta 1](http://wordpress.org/news/2013/04/wordpress-3-6-beta-1/)
-* __Stable version:__ [1.0](http://downloads.wordpress.org/plugin/code-snippets-tags.latest-stable.zip)
-* __License:__ [MIT](http://opensource.org/licenses/mit-license.php)
+* __Requires at least:__ [Code Snippets 1.8][code-snippets-github] and [WordPress 3.3](http://wordpress.org/download/)
+* __Tested up to:__ [WordPress 3.6 Beta 4](http://wordpress.org/news/2013/06/wordpress-3-5-2/)
+* __Stable version:__ [1.2](http://downloads.wordpress.org/plugin/code-snippets-tags.latest-stable.zip)
+* __License:__ [MIT](http://opensource.org/licenses/MIT)
 
 Organize your code snippets with tags. Adds support to the Code Snippets WordPress plugin for adding tags to snippets.
 
 ## Description
 
-Adds support to the Code Snippets WordPress plugin for adding tags to snippets. Requires [Code Snippets][code-snippets-github] 1.7.1 or later.
+Adds support to the Code Snippets WordPress plugin for adding tags to snippets. Requires [Code Snippets][code-snippets-github] 1.8 or later.
 
 You can assign tags to snippets using an interactive UI when editing or adding a new snippet. Then, you can filter snippets by tag on the snippets table, or see what tags are assigned to a particular snippet with a glance at the new table column. Tags are stored in your database and can be exported and imported along with the other snippet data.
 
-Visit the [plugin homepage](http://code-snippets.bungeshea.com/plugins/tags/) or download and review it on [WordPress.org](http://wordpress.org/extend/plugins/code-snippets)).
+Visit the [plugin homepage](http://code-snippets.bungeshea.com/plugins/tags/) or download and review it on [WordPress.org](http://wordpress.org/plugins/code-snippets)).
 
 ## Installation
 

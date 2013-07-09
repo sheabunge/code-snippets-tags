@@ -3,12 +3,12 @@
 /*
  * Plugin Name: Code Snippets Tags
  * Plugin URL: https://github.com/bungeshea/code-snippets-tags
- * Description: Adds support for adding tags to snippets to the Code Snippets WordPress plugin. Requires Code Snippets 1.7 or later
+ * Description: Adds support for adding tags to snippets to the Code Snippets WordPress plugin. Requires Code Snippets 1.8 or later
  * Author: Shea Bunge
  * Author URI: http://bungeshea.com
- * Version: 1.1
+ * Version: 1.2
  * License: MIT
- * License URI: http://opensource.org/license/mit-license.php
+ * License URI: http://opensource.org/license/MIT
  * Text Domain: code-snippets-tags
  * Domain Path: /languages/
  */

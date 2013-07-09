@@ -3,16 +3,16 @@ Contributors: bungeshea
 Donate link: http://code-snippets.bungeshea.com/donate/
 Tags: code-snippets-plugin, snippets, tags, category, organization, code, gui,
 Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 1.0
+Tested up to: 3.6
+Stable tag: 1.2
 License: MIT
-License URI: http://opensource.org/licenses/mit-license.php
+License URI: http://opensource.org/licenses/MIT
 
 Organize your code snippets with tags. Adds support to the Code Snippets WordPress plugin for adding tags to snippets.
 
 == Description ==
 
-Adds support to the Code Snippets WordPress plugin for adding tags to snippets. Requires [Code Snippets](http://wordpress.org/extend/plugins/code-snippets) 1.7.1 or later.
+Adds support to the Code Snippets WordPress plugin for adding tags to snippets. Requires [Code Snippets](http://wordpress.org/plugins/code-snippets) 1.8 or later.
 
 You can assign tags to snippets using an interactive UI when editing or adding a new snippet. Then, you can filter snippets by tag on the snippets table, or see what tags are assigned to a particular snippet with a glance at the new table column. Tags are stored in your database and can be exported and imported along with the other snippet data.
 
@@ -20,7 +20,7 @@ Visit the [plugin homepage](http://code-snippets.bungeshea.com/plugins/tags/) or
 
 == Installation ==
 
-This plugin extends the functionality of [Code Snippets](http://wordpress.org/extend/plugins/code-snippets), and requires Code Snippets version 1.7.1 or greater to be installed in order to work.
+This plugin extends the functionality of [Code Snippets](http://wordpress.org/plugins/code-snippets), and requires Code Snippets version 1.8 or greater to be installed in order to work.
 
 = Automatic installation =
 
@@ -46,6 +46,10 @@ This plugin extends the functionality of [Code Snippets](http://wordpress.org/ex
 
 == Changelog ==
 
+= 1.2 =
+* Fixes for Code Snippets 1.8
+* Make sure plugin cannot be loaded with an older version of Code Snippets
+
 = 1.1 =
 * Tags are now stored in database as comma-separated values - no more serialized arrays!
 * Improved database table creation process (now requires Code Snippets 1.7.1)
@@ -59,6 +63,9 @@ This plugin extends the functionality of [Code Snippets](http://wordpress.org/ex
 * Link tags in table column to relevant tag filter
 
 == Upgrade Notice ==
+
+= 1.2 =
+Fixes for Code Snippets 1.8
 
 = 1.1 =
 * Added German translation thanks to David Decker; database improvements
