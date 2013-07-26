@@ -90,7 +90,7 @@ class Code_Snippets_Tags {
 
 		/* Creating a snippet object */
 		add_filter( 'code_snippets/build_default_snippet', array( $this, 'build_default_snippet' ) );
-		add_filter( 'code_snippets_build_snippet_object', array( $this, 'build_snippet_object' ), 10, 2 );
+		add_filter( 'code_snippets/build_snippet_object', array( $this, 'build_snippet_object' ), 10, 2 );
 
 		/* Scripts and styles */
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
