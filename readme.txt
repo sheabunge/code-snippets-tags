@@ -4,7 +4,7 @@ Donate link: http://code-snippets.bungeshea.com/donate/
 Tags: code-snippets-plugin, snippets, tags, category, organization, code, gui,
 Requires at least: 3.3
 Tested up to: 3.6
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 
@@ -47,7 +47,7 @@ This plugin extends the functionality of [Code Snippets](http://wordpress.org/pl
 == Changelog ==
 
 = 1.2.1 =
-* Fix an incorrect filter hook preventing snippet tags from saving
+* Fixed an incorrect filter hook preventing snippet tags from saving
 
 = 1.2 =
 * Fixes for Code Snippets 1.8
@@ -68,10 +68,10 @@ This plugin extends the functionality of [Code Snippets](http://wordpress.org/pl
 == Upgrade Notice ==
 
 = 1.2.1 =
-Fix a bug preventing tags from saving
+Fixes a bug preventing tags from saving
 
 = 1.2 =
 Fixes for Code Snippets 1.8
 
 = 1.1 =
-* Added German translation thanks to David Decker; database improvements
+Added German translation thanks to David Decker; database improvements
