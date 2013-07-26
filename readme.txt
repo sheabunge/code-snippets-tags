@@ -46,6 +46,9 @@ This plugin extends the functionality of [Code Snippets](http://wordpress.org/pl
 
 == Changelog ==
 
+= 1.2.1 =
+* Fix an incorrect filter hook preventing snippet tags from saving
+
 = 1.2 =
 * Fixes for Code Snippets 1.8
 * Make sure plugin cannot be loaded with an older version of Code Snippets
@@ -63,6 +66,9 @@ This plugin extends the functionality of [Code Snippets](http://wordpress.org/pl
 * Link tags in table column to relevant tag filter
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+Fix a bug preventing tags from saving
 
 = 1.2 =
 Fixes for Code Snippets 1.8
