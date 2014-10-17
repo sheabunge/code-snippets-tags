@@ -1,7 +1,7 @@
 # Code Snippets Tags
 
 * __Requires at least:__ [Code Snippets 1.8][code-snippets-github] and [WordPress 3.3](http://wordpress.org/download/)
-* __Tested up to:__ [WordPress 3.6](http://wordpress.org/download/)
+* __Tested up to:__ [WordPress 4.0](http://wordpress.org/download/)
 * __Stable version:__ [1.2.1](http://downloads.wordpress.org/plugin/code-snippets-tags.latest-stable.zip)
 * __License:__ [MIT](http://opensource.org/licenses/MIT)
 

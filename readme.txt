@@ -3,7 +3,7 @@ Contributors: bungeshea
 Donate link: http://code-snippets.bungeshea.com/donate/
 Tags: code-snippets-plugin, snippets, tags, category, organization, code, gui,
 Requires at least: 3.3
-Tested up to: 3.9.1
+Tested up to: 4.0
 Stable tag: 1.2.1
 License: MIT
 License URI: http://opensource.org/licenses/MIT
