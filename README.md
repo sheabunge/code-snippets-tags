@@ -5,6 +5,8 @@
 * __Stable version:__ [1.2.1](http://downloads.wordpress.org/plugin/code-snippets-tags.latest-stable.zip)
 * __License:__ [MIT](http://opensource.org/licenses/MIT)
 
+> In Code Snippets version 2.0 or later, tags functionality is built in and this plugin is redundant
+
 Organize your code snippets with tags. Adds support to the Code Snippets WordPress plugin for adding tags to snippets.
 
 ## Description
